@@ -23,6 +23,7 @@ namespace Chess
         public MainWindow()
         {
             InitializeComponent();
+
         }
     }
 }
