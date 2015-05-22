@@ -21,6 +21,65 @@
 			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="0,300,0,225"/>
 			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="75,225,0,300"/>
 			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="75,525,0,0"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="0,75,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="75,150,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="0,225,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="75,300,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="0,375,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="75,450,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="0,525,0,0" VerticalAlignment="Top"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="0,0,0,525"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="75,525,0,0"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="0,525,0,0" VerticalAlignment="Top"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="150,150,0,375"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" RenderTransformOrigin="2.638,0.513" Margin="225,75,0,450"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="150,450,0,75"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="225,375,0,150"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="150,300,0,225"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="225,225,0,300"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="225,0,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="150,75,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="225,150,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="150,225,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="225,300,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="150,375,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="225,450,0,0" VerticalAlignment="Top"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="150,0,0,525"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="225,525,0,0"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="150,525,0,0" VerticalAlignment="Top"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="300,150,0,375"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" RenderTransformOrigin="2.638,0.513" Margin="375,75,0,450"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="300,450,0,75"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="375,375,0,150"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="300,300,0,225"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="375,225,0,300"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="375,0,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="300,75,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="375,150,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="300,225,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="375,300,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="300,375,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="375,450,0,0" VerticalAlignment="Top"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="300,0,0,525"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="375,525,0,0"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="300,525,0,0" VerticalAlignment="Top"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="450,150,0,375"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" RenderTransformOrigin="2.638,0.513" Margin="525,75,0,450"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="450,450,0,75"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="525,375,0,150"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="450,300,0,225"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="525,225,0,300"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="525,0,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="450,75,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="525,150,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="450,225,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="525,300,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="450,375,0,0" VerticalAlignment="Top"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="525,450,0,0" VerticalAlignment="Top"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="450,0,0,525"/>
+			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="525,525,0,0"/>
+			<local:BlackPlaceholder HorizontalAlignment="Left" Margin="450,525,0,0" VerticalAlignment="Top"/>
 		</Grid>
 	</Grid>
 </Window>
