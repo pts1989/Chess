@@ -18,6 +18,12 @@ namespace Chess
 	/// </summary>
 	public partial class WhitePlaceholder : UserControl
 	{
+        public Image chessPiece
+        {
+            get { return chessImage; }
+            set { chessImage = value; }
+        }
+
 		public WhitePlaceholder()
 		{
 			this.InitializeComponent();

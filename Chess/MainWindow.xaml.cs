@@ -23,7 +23,7 @@ namespace Chess
         public MainWindow()
         {
             InitializeComponent();
-
+            A6.chessPiece = new Image();
         }
     }
 }

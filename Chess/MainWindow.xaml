@@ -5,7 +5,7 @@
         Title="Chess" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 	<Grid x:Name="Main">
 		<Grid x:Name="boardArea" HorizontalAlignment="Left" Height="600" Margin="337,46" VerticalAlignment="Top" Width="600" Background="Black">
-			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="0,150,0,375"/>
+			<local:WhitePlaceholder x:Name="A6" Width="75" HorizontalAlignment="Left" Margin="0,150,0,375"/>
 			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" RenderTransformOrigin="2.638,0.513" Margin="75,75,0,450"/>
 			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="0,0,0,525"/>
 			<local:WhitePlaceholder Width="75" HorizontalAlignment="Left" Margin="0,450,0,75"/>

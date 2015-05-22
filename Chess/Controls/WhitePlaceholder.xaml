@@ -8,5 +8,7 @@
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480" Width="75" Height="75">
 
-	<Grid x:Name="LayoutRoot" Background="#FFE9D2AA"/>
+	<Grid x:Name="LayoutRoot" Background="#FFE9D2AA">
+		<Image x:Name="chessImage" HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="75" Stretch="Fill"/>
+	</Grid>
 </UserControl>
