@@ -1,0 +1,8 @@
+﻿<Window x:Class="Chess.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Chess" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+    	<Grid HorizontalAlignment="Left" Height="600" Margin="253.757,50.676,0,0" VerticalAlignment="Top" Width="800"/>
+    </Grid>
+</Window>
