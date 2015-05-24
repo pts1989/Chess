@@ -14,19 +14,15 @@ using System.Windows.Shapes;
 namespace Chess
 {
 	/// <summary>
-	/// Interaction logic for WhitePlaceholder.xaml
+	/// Interaction logic for BlackPlaceholder.xaml
 	/// </summary>
-	public partial class WhitePlaceholder : UserControl
+	public partial class Placeholder : UserControl
 	{
-        public Image chessPiece
-        {
-            get { return chessImage; }
-            set { chessImage = value; }
-        }
-
-		public WhitePlaceholder()
+		public Placeholder()
 		{
 			this.InitializeComponent();
 		}
+
+
 	}
 }

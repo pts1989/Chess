@@ -4,11 +4,11 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
-	x:Class="Chess.WhitePlaceholder"
+	x:Class="Chess.Placeholder"
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480" Width="75" Height="75">
 
-	<Grid x:Name="LayoutRoot" Background="#FFE9D2AA">
-		<Image x:Name="chessImage" HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="75" Stretch="Fill"/>
+	<Grid x:Name="LayoutRoot">
+		<Image x:Name="chessImage" HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="75"/>
 	</Grid>
 </UserControl>
