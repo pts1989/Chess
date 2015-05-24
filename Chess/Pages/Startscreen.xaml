@@ -1,0 +1,75 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" xmlns:Chess="clr-namespace:Chess" x:Class="Chess.Pages.Startscreen" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="Startscreen" Width="1274" Height="693">
+
+	<Page.Resources>
+		<Style x:Key="ButtonFocusVisual">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+			<GradientStop Color="#F3F3F3" Offset="0"/>
+			<GradientStop Color="#EBEBEB" Offset="0.5"/>
+			<GradientStop Color="#DDDDDD" Offset="0.5"/>
+			<GradientStop Color="#CDCDCD" Offset="1"/>
+		</LinearGradientBrush>
+		<SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+		<Style x:Key="start_menu_buttonstyle" TargetType="{x:Type Button}">
+			<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+			<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Themes:ButtonChrome x:Name="Chrome" RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" RenderDefaulted="{TemplateBinding IsDefaulted}" SnapsToDevicePixels="true" Background="#FF778ABA"/>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsKeyboardFocused" Value="true">
+								<Setter Property="RenderDefaulted" TargetName="Chrome" Value="true"/>
+							</Trigger>
+							<Trigger Property="ToggleButton.IsChecked" Value="true">
+								<Setter Property="RenderPressed" TargetName="Chrome" Value="true"/>
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="false">
+								<Setter Property="Foreground" Value="#ADADAD"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Page.Resources>
+
+	<Grid Background="#FF4C4F69">
+		<Image HorizontalAlignment="Left" Height="256" Margin="153,235,0,0" VerticalAlignment="Top" Width="270" Source="product-1344279566Chess_Titans_Icon.png"/>
+        
+		<Chess:Menu_Button x:Name="TwoPButton" HorizontalAlignment="Left" Margin="428,268,0,0" VerticalAlignment="Top" MouseDown="TwoPButton_MouseDown"/>
+		<Chess:Menu_Button x:Name="AIButton" HorizontalAlignment="Left" Margin="428,388,0,0" VerticalAlignment="Top"/>
+		<Rectangle HorizontalAlignment="Left" Height="2" Margin="815,178,0,0" VerticalAlignment="Top" Width="386">
+			<Rectangle.Fill>
+				<LinearGradientBrush EndPoint="1.3,1" StartPoint="0,0">
+					<GradientStop Color="White" Offset="0"/>
+					<GradientStop Offset="1"/>
+				</LinearGradientBrush>
+			</Rectangle.Fill>
+		</Rectangle>
+		<Label Content="Artificial Intelligence Chess" HorizontalAlignment="Left" Margin="815,140.113,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" FontSize="18.667" Foreground="White" Width="360.977"/>
+		<TextBlock HorizontalAlignment="Left" Margin="815,202.5,0,0" VerticalAlignment="Top" Height="149.46" Width="411.5" Foreground="White" FontFamily="Century Gothic" FontSize="14.667"><Run Text="A simple Chess program, made for a university Course."/><LineBreak/><Run Text="Either play against the computer, or play against a friend."/><LineBreak/><Run/><LineBreak/><Run Text="Enjoy!"/><LineBreak/><Run/><LineBreak/><Run Text="P. Stolk &amp; S. Bolluijt"/></TextBlock>
+        
+	</Grid>
+</Page>

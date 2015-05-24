@@ -18,6 +18,8 @@ namespace Chess
 	/// </summary>
 	public partial class Placeholder : UserControl
 	{
+        public int chessPieceID { get; set; }
+
 		public Placeholder()
 		{
 			this.InitializeComponent();

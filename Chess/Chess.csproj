@@ -35,8 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,10 +57,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Menu_Button.xaml.cs">
+      <DependentUpon>Menu_Button.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Placeholder.xaml.cs">
       <DependentUpon>Placeholder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\2_P_Game.xaml.cs">
+      <DependentUpon>2_P_Game.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Startscreen.xaml.cs">
+      <DependentUpon>Startscreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Chesspieces.cs" />
+    <Page Include="Controls\Menu_Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Placeholder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,6 +90,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\2_P_Game.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Startscreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -121,6 +145,7 @@
     <Resource Include="Images\black_tower.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\product-1344279566Chess_Titans_Icon.png" />
     <Resource Include="Images\white_bishops.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -139,6 +164,7 @@
     <Resource Include="Images\white_tower.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Pages\product-1344279566Chess_Titans_Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

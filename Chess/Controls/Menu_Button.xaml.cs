@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,21 +13,20 @@ using System.Windows.Shapes;
 
 namespace Chess
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
+	/// <summary>
+	/// Interaction logic for Menu_Button.xaml
+	/// </summary>
+	public partial class Menu_Button : UserControl
+	{
+        public string Text
         {
-            InitializeComponent();
-            this.Content = new Chess.Pages.Startscreen();
-
-           
+            get { return this.buttoncontent.Text; }
+            set { this.buttoncontent.Text = value; }
         }
-
-
-
-        
-    }
+		public Menu_Button()
+		{
+			this.InitializeComponent();
+            
+		}
+	}
 }

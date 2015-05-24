@@ -13,23 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Chess
+namespace Chess.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Startscreen.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Startscreen : Page
     {
-        public MainWindow()
+        public Startscreen()
         {
             InitializeComponent();
-            this.Content = new Chess.Pages.Startscreen();
-
-           
+            TwoPButton.Text = "2-Player game";
+            AIButton.Text = "Versus A.I.";
         }
 
-
-
-        
+        private void TwoPButton_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            MainWindow.GetWindow(this).Content = new _2_P_Game();
+        }
     }
 }
