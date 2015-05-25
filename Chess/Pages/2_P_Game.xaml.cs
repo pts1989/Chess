@@ -20,6 +20,8 @@ namespace Chess.Pages
     /// </summary>
     public partial class _2_P_Game : Page
     {
+        private int turnCounter = 0;
+
         public _2_P_Game()
         {
             InitializeComponent();
@@ -118,6 +120,8 @@ namespace Chess.Pages
 
         private ImageSource draggedImage;
         private Point mousePosition;
+        private int pieceID;
+        private string originName;
         private void placeholder_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var src = (Placeholder)e.Source;
@@ -127,6 +131,8 @@ namespace Chess.Pages
             {
                 mousePosition = e.GetPosition(boardArea);
                 draggedImage = image;
+                pieceID = src.chessPieceID;
+                originName = src.Name;
                 src.chessImage.Source = null;
             }
         }
@@ -137,6 +143,43 @@ namespace Chess.Pages
             {
                 var src = (Placeholder)e.Source;
                 src.chessImage.Source = draggedImage;
+                src.chessPieceID = pieceID;
+                if (!originName.Equals(src.Name))
+                {
+                    // moved to different spot, so register and pass turn to other player
+                    if (turnCounter % 2 == 0) {
+                        P1_Textbox.Text += "\n" + getPieceType(pieceID) + " to " + src.Name; 
+                    }
+                    else
+                    {
+                        P2_Textbox.Text += "\n" + getPieceType(pieceID) + " to " + src.Name; 
+                    }
+                    turnCounter++;
+                }
+            }
+        }
+
+        private string getPieceType(int pieceID)
+        {
+            int type = pieceID;
+            if (pieceID > 6) { type = pieceID - 6; }
+            switch (type)
+            {
+                case 1:
+                    return "Pawn";
+                case 2:
+                    return "Tower";
+                case 3:
+                    return "Horse";
+                case 4:
+                    return "Bishop";
+                case 5:
+                    return "Queen";
+                case 6:
+                    return "King";
+                default:
+                    return "Error";
+
             }
         }
     }
