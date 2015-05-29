@@ -8,7 +8,7 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="_2_P_Game" Width="1274" Height="695">
 	<Grid x:Name="Main" Background="#FF4C4F69">
-		<Grid x:Name="boardArea" HorizontalAlignment="Left" Height="600" Margin="337,46,0,0" VerticalAlignment="Top" Width="600.167" Background="White" >
+		<Canvas AllowDrop="True" x:Name="boardArea" HorizontalAlignment="Left" Height="600" Margin="337,46,0,0" VerticalAlignment="Top" Width="600.167" Background="White" >
 			<local:Placeholder x:Name="A1" HorizontalAlignment="Left" Margin="0,525,0,0" VerticalAlignment="Top" Background="#FF371B0A" MouseLeftButtonUp="placeholder_MouseLeftButtonUp" MouseLeftButtonDown="placeholder_MouseLeftButtonDown"/>
 			<local:Placeholder x:Name="A2" Width="75" HorizontalAlignment="Left" Margin="0,450,0,75" Background="#FFE9D2AA" MouseLeftButtonUp="placeholder_MouseLeftButtonUp" MouseLeftButtonDown="placeholder_MouseLeftButtonDown"/>
 			<local:Placeholder x:Name="A3" HorizontalAlignment="Left" Margin="0,375,0,0" VerticalAlignment="Top" Background="#FF371B0A" MouseLeftButtonUp="placeholder_MouseLeftButtonUp" MouseLeftButtonDown="placeholder_MouseLeftButtonDown"/>
@@ -73,7 +73,7 @@
 			<local:Placeholder x:Name="H6" HorizontalAlignment="Left" Margin="525,150,0,0" VerticalAlignment="Top" Background="#FF371B0A" MouseLeftButtonUp="placeholder_MouseLeftButtonUp" MouseLeftButtonDown="placeholder_MouseLeftButtonDown"/>
 			<local:Placeholder x:Name="H7" Width="75" HorizontalAlignment="Left" RenderTransformOrigin="2.638,0.513" Margin="525,75,0,450" Background="#FFE9D2AA" MouseLeftButtonUp="placeholder_MouseLeftButtonUp" MouseLeftButtonDown="placeholder_MouseLeftButtonDown"/>
 			<local:Placeholder x:Name="H8" HorizontalAlignment="Left" Margin="525,0,0,0" VerticalAlignment="Top" Background="#FF371B0A" MouseLeftButtonUp="placeholder_MouseLeftButtonUp" MouseLeftButtonDown="placeholder_MouseLeftButtonDown"/>
-		</Grid>
+		</Canvas>
 		<Border BorderBrush="#FF17244F" BorderThickness="2" HorizontalAlignment="Left" Height="600" Margin="337,46,0,0" VerticalAlignment="Top" Width="600.167"/>
 		<TextBox x:Name="P2_Textbox" HorizontalAlignment="Left" Height="281" Margin="1071,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159" SelectionBrush="{x:Null}" Foreground="Black" BorderBrush="{x:Null}" FontFamily="Century Gothic" FontSize="13.333" IsEnabled="False"/>
 		<TextBox x:Name="P1_Textbox" HorizontalAlignment="Left" Height="281" Margin="41,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159" SelectionBrush="{x:Null}" Foreground="Black" BorderBrush="{x:Null}" FontFamily="Century Gothic" FontSize="13.333" IsEnabled="False"/>
