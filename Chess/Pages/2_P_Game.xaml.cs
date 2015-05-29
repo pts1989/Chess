@@ -23,8 +23,8 @@ namespace Chess.Pages
     /// </summary>
     public partial class _2_P_Game : Page
     {
-        private int turnCounter = 0;
-
+        
+        List<List<Placeholder>> spaces;
         public _2_P_Game()
         {
             InitializeComponent();
@@ -37,7 +37,8 @@ namespace Chess.Pages
         {
 
             UIElementCollection col = boardArea.Children;
-            List<List<Placeholder>> spaces = new List<List<Placeholder>>();
+            spaces = new List<List<Placeholder>>();
+
             for (int i = 0; i < 8; i++)
             {
                 // loop through columns A - H
@@ -144,25 +145,58 @@ namespace Chess.Pages
             }
         }
 
+        // returns the x(column) and y(row) of the placeholder on the board.
+        // returns a -1,-1 point if no such placeholder was found.
+        private Point getPiecePositionInArray(Placeholder piece)
+        {
+            // get the index of the target position
+            int column=-1, row=-1;
+            for (int i = 0; i < spaces.Count; i++)
+            {
+                if (spaces[i].IndexOf(piece) > -1)
+                {
+                    column = i;
+                    row = spaces[i].IndexOf(piece);
+                }
+            }
+            return new Point(column, row);
+        }
+
+        private Point getMovementCoordinates(Point start, Point end)
+        {
+            return new Point(end.X - start.X, end.Y - start.Y);
+        }
+
+        //private bool pieceCollision(Point start, Point end)
+        //{
+        //    bool collision = false;
+        //    for (int i = 0; i < spaces.Count; i++)
+        //    {
+        //        if (spaces[i].IndexOf(piece) > -1)
+        //        {
+        //            column = i;
+        //            row = spaces[i].IndexOf(piece);
+        //        }
+        //    }
+            
+        //}
+
         #region chess piece movement
-        private ImageSource draggedImage;
-        private Point mousePosition;
-        private int pieceID;
-        private string originName;
+        
         private void placeholder_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var src = (Placeholder)e.Source;
             var image = src.chessImage.Source;
 
             // check if it is the right player, white starts
-            if (((turnCounter % 2) == 0 && src.chessPieceID <= 6) || ((turnCounter % 2) == 1 && src.chessPieceID > 6))
+            if (((ObjectMovement.turnCounter % 2) == 0 && src.chessPieceID <= 6) || ((ObjectMovement.turnCounter % 2) == 1 && src.chessPieceID > 6))
             {
                 if (image != null)
                 {
-                    mousePosition = e.GetPosition(boardArea);
-                    draggedImage = image;
-                    pieceID = src.chessPieceID;
-                    originName = src.Name;
+                    ObjectMovement.source = src;
+                    ObjectMovement.draggedImage = image;
+                    ObjectMovement.pieceID = src.chessPieceID;
+                    ObjectMovement.originName = src.Name;
                     src.chessImage.Source = null;
                 }
             }
@@ -172,29 +206,89 @@ namespace Chess.Pages
         {
             var src = (Placeholder)e.Source;
             // check if it is the right player, white starts
-            if (((turnCounter % 2) == 0 && pieceID <= 6) || ((turnCounter % 2) == 1 && pieceID > 6))
+            if (((ObjectMovement.turnCounter % 2) == 0 && ObjectMovement.pieceID <= 6) || ((ObjectMovement.turnCounter % 2) == 1 && ObjectMovement.pieceID > 6))
             {
-                if (draggedImage != null)
+                if (ObjectMovement.draggedImage != null)
                 {
-                    
-                    src.chessImage.Source = draggedImage;
-                    src.chessPieceID = pieceID;
-                    if (!originName.Equals(src.Name))
+                    if (validateMove(src))
                     {
-                        // moved to different spot, so register and pass turn to other player
-                        if (turnCounter % 2 == 0)
+                        src.chessImage.Source = ObjectMovement.draggedImage;
+                        src.chessPieceID = ObjectMovement.pieceID;
+                        if (!ObjectMovement.originName.Equals(src.Name))
                         {
-                            P1_Textbox.Text += "\n" + getPieceType(pieceID) + " to " + src.Name;
+                            // moved to different spot, so register and pass turn to other player
+                            if (ObjectMovement.turnCounter % 2 == 0)
+                            {
+                                P1_Textbox.Text += "\n" + getPieceType(ObjectMovement.pieceID) + " to " + src.Name;
+                            }
+                            else
+                            {
+                                P2_Textbox.Text += "\n" + getPieceType(ObjectMovement.pieceID) + " to " + src.Name;
+                            }
+                            ObjectMovement.turnCounter++;
                         }
-                        else
-                        {
-                            P2_Textbox.Text += "\n" + getPieceType(pieceID) + " to " + src.Name;
-                        }
-                        turnCounter++;
+                    }
+                    else
+                    {
+                        // place back the image at original position
+                        ObjectMovement.source.chessImage.Source = ObjectMovement.draggedImage;
                     }
                 }
+                
             }
         }
+        #endregion
+        
+        #region Validation
+        /**
+         * Checks wether the move is a valid one based on data in the ObjectMovement class.
+         * */ 
+        private bool validateMove(Placeholder endPosition)
+        {
+            bool validMove = true;
+
+            Point target = getPiecePositionInArray(endPosition);
+            Point source = getPiecePositionInArray(ObjectMovement.source);
+            Point movementCoordinates = getMovementCoordinates(source, target);
+
+            switch (getPieceType(ObjectMovement.pieceID))
+            {
+                case "Pawn":
+                    //can only move straight vertical, except when capturing. and enpassment
+
+                    break;
+                case "Tower":
+                    if ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0))
+                    {
+                        // movement is allowed, now check for pieces in between.
+                        // if (!pieceCollision())
+                        //{
+                        //     validateMove = true;
+                        // }
+                    }
+                    //Only horizontal and vertical movement allowed. If piece between start and end, invalid move. 
+                    break;
+                case "Horse":
+                    // Can jump over other objects. Always eighter one or two places sideways and always eighter one or two places up/downwards. If sideways one, 
+                    //then up/down two places, if up/down one then sideways two places
+                    break;
+                case "Bishop":
+                    //Only diogonal movement allowed. If piece between start and end, invalid move. 
+                    break;
+                case "Queen":
+                    // can move in every direction. If piece between start and end, invalid move. 
+                    break;
+                case "King":
+                    //can move in every direction, but can not move more than one place. Also he can not make a move that would result in a checkmate or check. Also 
+                    // can switch places with tower once'castling'.
+                    break;
+                default:
+                    return false;
+            }
+
+            return validMove;
+        }
+
         #endregion
 
         #region Mouse loc
