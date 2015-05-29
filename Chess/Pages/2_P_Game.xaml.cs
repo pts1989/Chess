@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -127,34 +128,44 @@ namespace Chess.Pages
             var src = (Placeholder)e.Source;
             var image = src.chessImage.Source;
 
-            if (image != null)
+            // check if it is the right player, white starts
+            if (((turnCounter % 2) == 0 && src.chessPieceID <= 6) || ((turnCounter % 2) == 1 && src.chessPieceID > 6))
             {
-                mousePosition = e.GetPosition(boardArea);
-                draggedImage = image;
-                pieceID = src.chessPieceID;
-                originName = src.Name;
-                src.chessImage.Source = null;
+                if (image != null)
+                {
+                    mousePosition = e.GetPosition(boardArea);
+                    draggedImage = image;
+                    pieceID = src.chessPieceID;
+                    originName = src.Name;
+                    src.chessImage.Source = null;
+                }
             }
         }
 
         private void placeholder_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (draggedImage != null)
+            var src = (Placeholder)e.Source;
+            // check if it is the right player, white starts
+            if (((turnCounter % 2) == 0 && pieceID <= 6) || ((turnCounter % 2) == 1 && pieceID > 6))
             {
-                var src = (Placeholder)e.Source;
-                src.chessImage.Source = draggedImage;
-                src.chessPieceID = pieceID;
-                if (!originName.Equals(src.Name))
+                if (draggedImage != null)
                 {
-                    // moved to different spot, so register and pass turn to other player
-                    if (turnCounter % 2 == 0) {
-                        P1_Textbox.Text += "\n" + getPieceType(pieceID) + " to " + src.Name; 
-                    }
-                    else
+                    
+                    src.chessImage.Source = draggedImage;
+                    src.chessPieceID = pieceID;
+                    if (!originName.Equals(src.Name))
                     {
-                        P2_Textbox.Text += "\n" + getPieceType(pieceID) + " to " + src.Name; 
+                        // moved to different spot, so register and pass turn to other player
+                        if (turnCounter % 2 == 0)
+                        {
+                            P1_Textbox.Text += "\n" + getPieceType(pieceID) + " to " + src.Name;
+                        }
+                        else
+                        {
+                            P2_Textbox.Text += "\n" + getPieceType(pieceID) + " to " + src.Name;
+                        }
+                        turnCounter++;
                     }
-                    turnCounter++;
                 }
             }
         }
@@ -181,6 +192,23 @@ namespace Chess.Pages
                     return "Error";
 
             }
+        }
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetCursorPos(ref Win32Point pt);
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct Win32Point
+        {
+            public Int32 X;
+            public Int32 Y;
+        };
+        public static Point GetMousePosition()
+        {
+            Win32Point w32Mouse = new Win32Point();
+            GetCursorPos(ref w32Mouse);
+            return new Point(w32Mouse.X, w32Mouse.Y);
         }
     }
 }
