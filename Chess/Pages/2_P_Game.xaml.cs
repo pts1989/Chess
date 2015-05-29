@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region using statements
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+#endregion
 
 namespace Chess.Pages
 {
@@ -118,7 +120,31 @@ namespace Chess.Pages
 
         }
 
+        private string getPieceType(int pieceID)
+        {
+            int type = pieceID;
+            if (pieceID > 6) { type = pieceID - 6; }
+            switch (type)
+            {
+                case 1:
+                    return "Pawn";
+                case 2:
+                    return "Tower";
+                case 3:
+                    return "Horse";
+                case 4:
+                    return "Bishop";
+                case 5:
+                    return "Queen";
+                case 6:
+                    return "King";
+                default:
+                    return "Error";
 
+            }
+        }
+
+        #region chess piece movement
         private ImageSource draggedImage;
         private Point mousePosition;
         private int pieceID;
@@ -169,31 +195,9 @@ namespace Chess.Pages
                 }
             }
         }
+        #endregion
 
-        private string getPieceType(int pieceID)
-        {
-            int type = pieceID;
-            if (pieceID > 6) { type = pieceID - 6; }
-            switch (type)
-            {
-                case 1:
-                    return "Pawn";
-                case 2:
-                    return "Tower";
-                case 3:
-                    return "Horse";
-                case 4:
-                    return "Bishop";
-                case 5:
-                    return "Queen";
-                case 6:
-                    return "King";
-                default:
-                    return "Error";
-
-            }
-        }
-
+        #region Mouse loc
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool GetCursorPos(ref Win32Point pt);
@@ -210,5 +214,6 @@ namespace Chess.Pages
             GetCursorPos(ref w32Mouse);
             return new Point(w32Mouse.X, w32Mouse.Y);
         }
+        #endregion
     }
 }
