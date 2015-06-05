@@ -90,6 +90,13 @@
       <DependentUpon>Startscreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Chesspieces.cs" />
+    <Compile Include="Utilities\Castle.cs" />
+    <Compile Include="Utilities\King.cs" />
+    <Compile Include="Utilities\Bishop.cs" />
+    <Compile Include="Utilities\Towerr.cs" />
+    <Compile Include="Utilities\Queen.cs" />
+    <Compile Include="Utilities\Pawn.cs" />
+    <Compile Include="Utilities\Horse.cs" />
     <Compile Include="Utilities\ObjectMovement.cs" />
     <Page Include="Controls\Menu_Button.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -188,9 +195,6 @@
     <Resource Include="Pages\product-1344279566Chess_Titans_Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sql\Database.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -210,9 +214,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DbModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

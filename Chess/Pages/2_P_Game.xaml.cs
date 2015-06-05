@@ -1,4 +1,5 @@
 ﻿#region using statements
+using Chess.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,21 +53,36 @@ namespace Chess.Pages
             // place pieces on board
             for (int i = 0; i < 8; i++)
             {
+                //Pawn pawn = new Pawn();
+                //pawn.pieceId = 1;
+                //pawn.Source = Chess.Utilities.Chesspieces.white_pawn;
+
                 // place pawns on 2nd rows from each side
-                spaces[i][1].chessImage.Source = Chess.Utilities.Chesspieces.white_pawn;
                 spaces[i][1].chessPieceID = 1;
+                spaces[i][1].chessImage.Source = Chess.Utilities.Chesspieces.white_pawn;
+                //spaces[i][1].chessPiece = pawn;
+
+                //Pawn pawnBlack = new Pawn();
+                //pawn.pieceId = 7;
+                //pawn.Source = Chess.Utilities.Chesspieces.black_pawn;
+
                 spaces[i][6].chessImage.Source = Chess.Utilities.Chesspieces.black_pawn;
                 spaces[i][6].chessPieceID = 7;
+                //spaces[i][6].chessPiece = pawnBlack;
+
             }
             for (int i = 0; i < 8; i++)
             {
                 BitmapImage image_white = null, image_black = null;
                 int white_id=0, black_id = 0;
+                //object white = null, black =null;
+                
                 switch (i)
                 {
                     case 0: // tower
                         image_white = Chess.Utilities.Chesspieces.white_tower;
                         white_id = 2;
+
                         image_black = Chess.Utilities.Chesspieces.black_tower;
                         black_id = 8;
                         break;
@@ -115,8 +131,11 @@ namespace Chess.Pages
                 }
                 spaces[i][0].chessImage.Source = image_white;
                 spaces[i][0].chessPieceID = white_id;
+                //spaces[i][0].chessPiece = white;
+
                 spaces[i][7].chessImage.Source = image_black;
                 spaces[i][7].chessPieceID = black_id;
+                //spaces[i][7].chessPiece = black;
             }
 
         }
@@ -167,19 +186,24 @@ namespace Chess.Pages
             return new Point(end.X - start.X, end.Y - start.Y);
         }
 
-        //private bool pieceCollision(Point start, Point end)
-        //{
-        //    bool collision = false;
-        //    for (int i = 0; i < spaces.Count; i++)
-        //    {
-        //        if (spaces[i].IndexOf(piece) > -1)
-        //        {
-        //            column = i;
-        //            row = spaces[i].IndexOf(piece);
-        //        }
-        //    }
-            
-        //}
+        private bool pieceCollision(Point start, Point end, Point movement)
+        {
+            bool collision = false;
+            for (int colum = 0; colum < spaces.Count; colum++)
+            {
+                for(int row = 0; row < spaces[colum].Count; row++)
+                {
+
+                }
+                //if (spaces[i].IndexOf(piece) > -1)
+                //{
+                //    column = i;
+                //    row = spaces[i].IndexOf(piece);
+                //}
+            }
+
+            return collision;
+        }
 
         #region chess piece movement
         
@@ -210,6 +234,7 @@ namespace Chess.Pages
             {
                 if (ObjectMovement.draggedImage != null)
                 {
+                    
                     if (validateMove(src))
                     {
                         src.chessImage.Source = ObjectMovement.draggedImage;
@@ -245,40 +270,74 @@ namespace Chess.Pages
          * */ 
         private bool validateMove(Placeholder endPosition)
         {
-            bool validMove = true;
-
+            bool validMove = false;
             Point target = getPiecePositionInArray(endPosition);
             Point source = getPiecePositionInArray(ObjectMovement.source);
             Point movementCoordinates = getMovementCoordinates(source, target);
+
+            //if (endPosition.chessPiece == typeof(Pawn))
+            //{
+            //    Pawn pawn = (Pawn)endPosition.chessPiece;
+            //    validMove = pawn.makenMove(source, target);           
+            //}
 
             switch (getPieceType(ObjectMovement.pieceID))
             {
                 case "Pawn":
                     //can only move straight vertical, except when capturing. and enpassment
-
+                    if (Math.Abs(movementCoordinates.Y) == 1 && Math.Abs(movementCoordinates.X) == 0)
+                    {
+                        validMove = true;
+                        // first time max 2 movement.
+                    }
                     break;
                 case "Tower":
                     if ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0))
                     {
                         // movement is allowed, now check for pieces in between.
-                        // if (!pieceCollision())
-                        //{
-                        //     validateMove = true;
-                        // }
+                        if (!pieceCollision(source, target, movementCoordinates))
+                        {
+                            validMove = true;
+                        }
+                        
                     }
                     //Only horizontal and vertical movement allowed. If piece between start and end, invalid move. 
                     break;
                 case "Horse":
+                    if ((Math.Abs(movementCoordinates.X) == 1 && Math.Abs(movementCoordinates.Y) == 2) || (Math.Abs(movementCoordinates.X) == 2 && Math.Abs(movementCoordinates.Y) == 1))
+                    {
+                        validMove = true;
+                    }
                     // Can jump over other objects. Always eighter one or two places sideways and always eighter one or two places up/downwards. If sideways one, 
                     //then up/down two places, if up/down one then sideways two places
                     break;
                 case "Bishop":
+                    if(Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y))
+                    {
+                        if (!pieceCollision(source, target, movementCoordinates))
+                        {
+                            validMove = true;
+                        }
+                    }
                     //Only diogonal movement allowed. If piece between start and end, invalid move. 
                     break;
                 case "Queen":
                     // can move in every direction. If piece between start and end, invalid move. 
+                    if ((Math.Abs(movementCoordinates.X) <= 1 && Math.Abs(movementCoordinates.Y) <= 1) 
+                        ||(Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y)) 
+                        || ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0)))
+                    {
+                        if (!pieceCollision(source, target, movementCoordinates))
+                        {
+                            validMove = true;
+                        }
+                    }
                     break;
                 case "King":
+                    if (Math.Abs(movementCoordinates.X) <= 1 && Math.Abs(movementCoordinates.Y) <= 1)
+                    {
+                        validMove = true;
+                    }
                     //can move in every direction, but can not move more than one place. Also he can not make a move that would result in a checkmate or check. Also 
                     // can switch places with tower once'castling'.
                     break;

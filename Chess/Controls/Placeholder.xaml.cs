@@ -20,6 +20,8 @@ namespace Chess
 	{
         public int chessPieceID { get; set; }
 
+        public object chessPiece { get; set; }
+
 		public Placeholder()
 		{
 			this.InitializeComponent();
