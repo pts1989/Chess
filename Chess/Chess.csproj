@@ -93,7 +93,8 @@
     <Compile Include="Utilities\Castle.cs" />
     <Compile Include="Utilities\King.cs" />
     <Compile Include="Utilities\Bishop.cs" />
-    <Compile Include="Utilities\Towerr.cs" />
+    <Compile Include="Utilities\Chesspiece.cs" />
+    <Compile Include="Utilities\Tower.cs" />
     <Compile Include="Utilities\Queen.cs" />
     <Compile Include="Utilities\Pawn.cs" />
     <Compile Include="Utilities\Horse.cs" />

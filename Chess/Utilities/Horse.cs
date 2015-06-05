@@ -8,23 +8,8 @@ using System.Windows.Controls;
 
 namespace Chess.Utilities
 {
-    class Horse : Image
+    class Horse : Chesspiece
     {
-        public int pieceId;
-        public Point current;
-        List<Point> allowed_targets;
-        //void update AllowedTargets();
-        public bool makenMove(Point source, Point target)
-        {
-            //Point movementCoordinates = _2_P_Game.getMovementCoordinates(source, target);
-
-            if (allowed_targets.Contains(target))
-            {
-                current = target;
-                return true;
-            }
-
-            return false;
-        }
+       
     }
 }

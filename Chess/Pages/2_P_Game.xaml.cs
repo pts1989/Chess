@@ -189,17 +189,60 @@ namespace Chess.Pages
         private bool pieceCollision(Point start, Point end, Point movement)
         {
             bool collision = false;
-            for (int colum = 0; colum < spaces.Count; colum++)
-            {
-                for(int row = 0; row < spaces[colum].Count; row++)
-                {
+            // only two types, digonal or straight line movement.
+            string direction = "diagonal";
 
+            if ((movement.X == 0 && movement.Y != 0) || (movement.X != 0 && movement.Y == 0))
+            {
+                //moving over one line only.
+                if(movement.X == 0 && movement.Y != 0)
+                {
+                    direction = "vertical";
                 }
-                //if (spaces[i].IndexOf(piece) > -1)
-                //{
-                //    column = i;
-                //    row = spaces[i].IndexOf(piece);
-                //}
+                else
+                {
+                    direction = "horizontal";
+                }
+            }
+
+
+            switch (direction)
+            {
+                case "horizontal":
+                    {
+                        for (int colum = 0; colum < spaces.Count; colum++)
+                        {
+                            if ((movement.X > 0 && (colum > start.X && colum < end.X)) || (movement.X < 0 && (colum > end.X && colum < start.X)))
+                            {
+                                if (spaces[colum][(int)start.Y].chessPieceID > 0)
+                                {
+                                    collision = true;
+                                }
+                            }
+
+                        }
+                        break;
+                    }
+                case "vertical":
+                    {
+                        for (int row = 0; row < spaces.Count; row++)
+                        {
+                            if ((movement.Y > 0 && (row > start.Y && row < end.Y)) || (movement.Y < 0 && (row > end.Y && row < start.Y)))
+                            {
+                                if (spaces[row][(int)start.X].chessPieceID > 0)
+                                {
+                                    collision = true;
+                                }
+                            }
+
+                        }
+                        break;
+                    }
+                case "diagonal":
+                    {
+                        collision = diagonalCheck(start, end, movement, collision);
+                        break;
+                    }
             }
 
             return collision;
@@ -207,6 +250,47 @@ namespace Chess.Pages
 
         #region chess piece movement
         
+        private bool diagonalCheck(Point start, Point end, Point movement,bool collision = false)
+        {
+            int x = 1, y = 1;
+
+            if (movement.X < 0)
+            {
+                x = -1;
+            }
+
+            if (movement.Y < 0)
+            {
+                y = -1;
+            }
+
+            Point checkPoint = new Point(start.X + x, start.Y + y);
+
+            for (int colum = 0; colum < spaces.Count; colum++)
+            {
+                if (colum == checkPoint.X)
+                {
+                    for (int row = 0; row < spaces[colum].Count; row++)
+                    {
+                        if (row == checkPoint.Y)
+                        {
+                            if (spaces[row][row].chessPieceID > 0)
+                            {
+                                collision = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!collision && checkPoint != end)
+            {
+                diagonalCheck(checkPoint, end, movement, collision);
+            }
+
+            return collision;
+        }
+
         private void placeholder_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var src = (Placeholder)e.Source;
@@ -221,6 +305,7 @@ namespace Chess.Pages
                     ObjectMovement.draggedImage = image;
                     ObjectMovement.pieceID = src.chessPieceID;
                     ObjectMovement.originName = src.Name;
+                    src.chessPieceID = 0;
                     src.chessImage.Source = null;
                 }
             }
@@ -234,11 +319,11 @@ namespace Chess.Pages
             {
                 if (ObjectMovement.draggedImage != null)
                 {
-                    
                     if (validateMove(src))
                     {
                         src.chessImage.Source = ObjectMovement.draggedImage;
                         src.chessPieceID = ObjectMovement.pieceID;
+
                         if (!ObjectMovement.originName.Equals(src.Name))
                         {
                             // moved to different spot, so register and pass turn to other player
@@ -250,6 +335,7 @@ namespace Chess.Pages
                             {
                                 P2_Textbox.Text += "\n" + getPieceType(ObjectMovement.pieceID) + " to " + src.Name;
                             }
+
                             ObjectMovement.turnCounter++;
                         }
                     }
@@ -257,7 +343,20 @@ namespace Chess.Pages
                     {
                         // place back the image at original position
                         ObjectMovement.source.chessImage.Source = ObjectMovement.draggedImage;
+                        if (src.chessPieceID > 0)
+                        {
+                            //ObjectMovement.pieceID = src.chessPieceID;
+                            //ObjectMovement.originName = src.Name;
+                        }
+           
                     }
+                    //reset mogelijk nodig voor juiste validatie van velden.
+
+                    //ObjectMovement.draggedImage = null;
+                    //ObjectMovement.pieceID = 0;
+                    //ObjectMovement.source = null;
+                    //ObjectMovement.originName = null;
+
                 }
                 
             }
@@ -271,80 +370,83 @@ namespace Chess.Pages
         private bool validateMove(Placeholder endPosition)
         {
             bool validMove = false;
-            Point target = getPiecePositionInArray(endPosition);
-            Point source = getPiecePositionInArray(ObjectMovement.source);
-            Point movementCoordinates = getMovementCoordinates(source, target);
 
-            //if (endPosition.chessPiece == typeof(Pawn))
-            //{
-            //    Pawn pawn = (Pawn)endPosition.chessPiece;
-            //    validMove = pawn.makenMove(source, target);           
-            //}
+            if (endPosition.chessPieceID == 0|| ((ObjectMovement.pieceID <= 6 && endPosition.chessPieceID >= 7) || ((ObjectMovement.pieceID >= 7 && endPosition.chessPieceID <= 6))))
+            { 
+                Point target = getPiecePositionInArray(endPosition);
+                Point source = getPiecePositionInArray(ObjectMovement.source);
+                Point movementCoordinates = getMovementCoordinates(source, target);
+            
+                //if (endPosition.chessPiece == typeof(Pawn))
+                //{
+                //    Pawn pawn = (Pawn)endPosition.chessPiece;
+                //    validMove = pawn.makenMove(source, target);           
+                //}
 
-            switch (getPieceType(ObjectMovement.pieceID))
-            {
-                case "Pawn":
-                    //can only move straight vertical, except when capturing. and enpassment
-                    if (Math.Abs(movementCoordinates.Y) == 1 && Math.Abs(movementCoordinates.X) == 0)
-                    {
-                        validMove = true;
-                        // first time max 2 movement.
-                    }
-                    break;
-                case "Tower":
-                    if ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0))
-                    {
-                        // movement is allowed, now check for pieces in between.
-                        if (!pieceCollision(source, target, movementCoordinates))
+                switch (getPieceType(ObjectMovement.pieceID))
+                {
+                    case "Pawn":
+                        //can only move straight vertical, except when capturing. and enpassment
+                        if (Math.Abs(movementCoordinates.Y) == 1 && Math.Abs(movementCoordinates.X) == 0)
                         {
                             validMove = true;
+                            // first time max 2 movement.
                         }
+                        break;
+                    case "Tower":
+                        if ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0))
+                        {
+                            // movement is allowed, now check for pieces in between.
+                            if (!pieceCollision(source, target, movementCoordinates))
+                            {
+                                validMove = true;
+                            }
                         
-                    }
-                    //Only horizontal and vertical movement allowed. If piece between start and end, invalid move. 
-                    break;
-                case "Horse":
-                    if ((Math.Abs(movementCoordinates.X) == 1 && Math.Abs(movementCoordinates.Y) == 2) || (Math.Abs(movementCoordinates.X) == 2 && Math.Abs(movementCoordinates.Y) == 1))
-                    {
-                        validMove = true;
-                    }
-                    // Can jump over other objects. Always eighter one or two places sideways and always eighter one or two places up/downwards. If sideways one, 
-                    //then up/down two places, if up/down one then sideways two places
-                    break;
-                case "Bishop":
-                    if(Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y))
-                    {
-                        if (!pieceCollision(source, target, movementCoordinates))
+                        }
+                        //Only horizontal and vertical movement allowed. If piece between start and end, invalid move. 
+                        break;
+                    case "Horse":
+                        if ((Math.Abs(movementCoordinates.X) == 1 && Math.Abs(movementCoordinates.Y) == 2) || (Math.Abs(movementCoordinates.X) == 2 && Math.Abs(movementCoordinates.Y) == 1))
                         {
                             validMove = true;
                         }
-                    }
-                    //Only diogonal movement allowed. If piece between start and end, invalid move. 
-                    break;
-                case "Queen":
-                    // can move in every direction. If piece between start and end, invalid move. 
-                    if ((Math.Abs(movementCoordinates.X) <= 1 && Math.Abs(movementCoordinates.Y) <= 1) 
-                        ||(Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y)) 
-                        || ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0)))
-                    {
-                        if (!pieceCollision(source, target, movementCoordinates))
+                        // Can jump over other objects. Always eighter one or two places sideways and always eighter one or two places up/downwards. If sideways one, 
+                        //then up/down two places, if up/down one then sideways two places
+                        break;
+                    case "Bishop":
+                        if(Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y))
+                        {
+                            if (!pieceCollision(source, target, movementCoordinates))
+                            {
+                                validMove = true;
+                            }
+                        }
+                        //Only diogonal movement allowed. If piece between start and end, invalid move. 
+                        break;
+                    case "Queen":
+                        // can move in every direction. If piece between start and end, invalid move. 
+                        if ((Math.Abs(movementCoordinates.X) <= 1 && Math.Abs(movementCoordinates.Y) <= 1) 
+                            ||(Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y)) 
+                            || ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0)))
+                        {
+                            if (!pieceCollision(source, target, movementCoordinates))
+                            {
+                                validMove = true;
+                            }
+                        }
+                        break;
+                    case "King":
+                        if (Math.Abs(movementCoordinates.X) <= 1 && Math.Abs(movementCoordinates.Y) <= 1)
                         {
                             validMove = true;
                         }
-                    }
-                    break;
-                case "King":
-                    if (Math.Abs(movementCoordinates.X) <= 1 && Math.Abs(movementCoordinates.Y) <= 1)
-                    {
-                        validMove = true;
-                    }
-                    //can move in every direction, but can not move more than one place. Also he can not make a move that would result in a checkmate or check. Also 
-                    // can switch places with tower once'castling'.
-                    break;
-                default:
-                    return false;
+                        //can move in every direction, but can not move more than one place. Also he can not make a move that would result in a checkmate or check. Also 
+                        // can switch places with tower once'castling'.
+                        break;
+                    default:
+                        return false;
+                }
             }
-
             return validMove;
         }
 
