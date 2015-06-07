@@ -193,5 +193,107 @@ namespace Chess.Controls
             }
             return new Point(column, row);
         }
+
+        public static bool pieceCollision(Point start, Point end, Point movement)
+        {
+            bool collision = false;
+            // only two types, diagonal or straight line movement.
+            string direction = "diagonal";
+
+            if ((movement.X == 0 && movement.Y != 0) || (movement.X != 0 && movement.Y == 0))
+            {
+                //moving over one line only.
+                if (movement.X == 0 && movement.Y != 0)
+                {
+                    direction = "vertical";
+                }
+                else
+                {
+                    direction = "horizontal";
+                }
+            }
+
+
+            switch (direction)
+            {
+                case "horizontal":
+                    {
+                        for (int colum = 0; colum < spaces.Count; colum++)
+                        {
+                            if ((movement.X > 0 && (colum > start.X && colum < end.X)) || (movement.X < 0 && (colum > end.X && colum < start.X)))
+                            {
+                                if ((Unit)spaces[colum][(int)start.Y].chessPiece != null)
+                                {
+                                    collision = true;
+                                }
+                            }
+
+                        }
+                        break;
+                    }
+                case "vertical":
+                    {
+                        for (int row = 0; row < spaces.Count; row++)
+                        {
+                            if ((movement.Y > 0 && (row > start.Y && row < end.Y)) || (movement.Y < 0 && (row > end.Y && row < start.Y)))
+                            {
+                                if (spaces[row][(int)start.X].chessPiece != null)
+                                {
+                                    collision = true;
+                                }
+                            }
+
+                        }
+                        break;
+                    }
+                case "diagonal":
+                    {
+                        collision = diagonalCheck(start, end, movement, collision);
+                        break;
+                    }
+            }
+            return collision;
+        }
+
+        public static bool diagonalCheck(Point start, Point end, Point movement, bool collision = false)
+        {
+            int x = 1, y = 1;
+
+            if (movement.X < 0)
+            {
+                x = -1;
+            }
+
+            if (movement.Y < 0)
+            {
+                y = -1;
+            }
+
+            Point checkPoint = new Point(start.X + x, start.Y + y);
+
+            for (int colum = 0; colum < spaces.Count; colum++)
+            {
+                if (colum == checkPoint.X)
+                {
+                    for (int row = 0; row < spaces[colum].Count; row++)
+                    {
+                        if (row == checkPoint.Y)
+                        {
+                            if (spaces[row][row].chessPiece != null)
+                            {
+                                collision = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!collision && checkPoint != end)
+            {
+                diagonalCheck(checkPoint, end, movement, collision);
+            }
+
+            return collision;
+        }
     }
 }
