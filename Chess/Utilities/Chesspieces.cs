@@ -22,5 +22,8 @@ namespace Chess.Utilities
         public static BitmapImage white_king = new BitmapImage(new Uri("/Chess;component/images/white_king.png", UriKind.Relative));
         public static BitmapImage white_queen = new BitmapImage(new Uri("/Chess;component/images/white_queen.png", UriKind.Relative));
         public static BitmapImage white_tower = new BitmapImage(new Uri("/Chess;component/images/white_tower.png", UriKind.Relative));
+
+        public const int WHITE = 1;
+        public const int BLACK = 2;
     }
 }

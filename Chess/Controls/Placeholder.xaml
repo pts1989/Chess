@@ -8,7 +8,7 @@
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480" Width="75" Height="75">
 
-	<Grid x:Name="LayoutRoot">
-		<Image x:Name="chessImage" HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="75"/>
-	</Grid>
+    <Grid x:Name="piece_control" Height="75" Width="75">
+        
+    </Grid>
 </UserControl>

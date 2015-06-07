@@ -16,16 +16,5 @@ namespace Chess
         public static string originName;
         //
 
-        /*
-         * class Horse: Image
-         * {
-         *  point currunt;
-         *  List<point> allowed_targets;
-         *  
-         *  void update AllowedTargets();
-         *  bool makenMove();
-         * }
-         * 
-         */
-    }
+       }
 }

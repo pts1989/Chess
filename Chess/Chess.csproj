@@ -77,9 +77,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Chessboard.xaml.cs">
+      <DependentUpon>Chessboard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Menu_Button.xaml.cs">
       <DependentUpon>Menu_Button.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Units\Horse.cs" />
+    <Compile Include="Units\Queen.cs" />
+    <Compile Include="Units\Tower.cs" />
+    <Compile Include="Units\Bishop.cs" />
+    <Compile Include="Units\King.cs" />
+    <Compile Include="Units\Pawn.cs" />
     <Compile Include="Controls\Placeholder.xaml.cs">
       <DependentUpon>Placeholder.xaml</DependentUpon>
     </Compile>
@@ -89,16 +98,15 @@
     <Compile Include="Pages\Startscreen.xaml.cs">
       <DependentUpon>Startscreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Units\Unit.xaml.cs">
+      <DependentUpon>Unit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Chesspieces.cs" />
-    <Compile Include="Utilities\Castle.cs" />
-    <Compile Include="Utilities\King.cs" />
-    <Compile Include="Utilities\Bishop.cs" />
-    <Compile Include="Utilities\Chesspiece.cs" />
-    <Compile Include="Utilities\Tower.cs" />
-    <Compile Include="Utilities\Queen.cs" />
-    <Compile Include="Utilities\Pawn.cs" />
-    <Compile Include="Utilities\Horse.cs" />
     <Compile Include="Utilities\ObjectMovement.cs" />
+    <Page Include="Controls\Chessboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Menu_Button.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -124,6 +132,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Startscreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Units\Unit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -193,7 +205,6 @@
     <Resource Include="Images\white_tower.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Pages\product-1344279566Chess_Titans_Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

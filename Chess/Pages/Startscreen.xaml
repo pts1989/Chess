@@ -56,7 +56,7 @@
 	</Page.Resources>
 
 	<Grid Background="#FF4C4F69">
-		<Image HorizontalAlignment="Left" Height="256" Margin="153,235,0,0" VerticalAlignment="Top" Width="270" Source="product-1344279566Chess_Titans_Icon.png"/>
+        <Image HorizontalAlignment="Left" Height="256" Margin="153,235,0,0" VerticalAlignment="Top" Width="270" Source="/Chess;component/Images/product-1344279566Chess_Titans_Icon.png"></Image>
         
 		<Chess:Menu_Button x:Name="TwoPButton" HorizontalAlignment="Left" Margin="428,268,0,0" VerticalAlignment="Top" MouseDown="TwoPButton_MouseDown"/>
 		<Chess:Menu_Button x:Name="AIButton" HorizontalAlignment="Left" Margin="428,388,0,0" VerticalAlignment="Top"/>
