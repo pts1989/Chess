@@ -9,10 +9,10 @@ namespace Chess.Units
 {
     class Horse : Unit
     {
-        public Horse(int PIECE_COLOR)
+        public Horse(int PIECE_COLOR, Point origin)
         {
             pieceType = "Horse";
-
+            base.origin = origin;
             if (PIECE_COLOR == Utilities.Chesspieces.WHITE)
             {
                 base.pieceID = 3;
@@ -36,12 +36,15 @@ namespace Chess.Units
             Point movementCoordinates = base.getMovementCoordinates(origin, dest);
             bool validMove = false;
 
-            if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
+            if (origin != dest)
             {
-                if ((Math.Abs(movementCoordinates.X) == 1 && Math.Abs(movementCoordinates.Y) == 2) || (Math.Abs(movementCoordinates.X) == 2 && Math.Abs(movementCoordinates.Y) == 1))
+                if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
                 {
-                    // no need for piece collision, horse can jump over anything
-                    validMove = true;
+                    if ((Math.Abs(movementCoordinates.X) == 1 && Math.Abs(movementCoordinates.Y) == 2) || (Math.Abs(movementCoordinates.X) == 2 && Math.Abs(movementCoordinates.Y) == 1))
+                    {
+                        // no need for piece collision, horse can jump over anything
+                        validMove = true;
+                    }
                 }
             }
             

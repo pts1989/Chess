@@ -9,10 +9,10 @@ namespace Chess.Units
 {
     class Tower : Unit
     {
-        public Tower(int PIECE_COLOR)
+        public Tower(int PIECE_COLOR, Point origin)
         {
             pieceType = "Tower";
-
+            base.origin = origin;
             if (PIECE_COLOR == Utilities.Chesspieces.WHITE)
             {
                 base.pieceID = 2;
@@ -34,15 +34,18 @@ namespace Chess.Units
             Point movementCoordinates = base.getMovementCoordinates(origin, dest);
             bool validMove = false;
 
-            if ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0))
+            if (origin != dest)
             {
-                // movement is allowed, now check if the target destination contains a piece of your own
-                // if so, the action is not allowed
-                if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
+                if ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0))
                 {
-                    if (!Chess.Controls.Chessboard.pieceCollision(origin, dest, movementCoordinates))
+                    // movement is allowed, now check if the target destination contains a piece of your own
+                    // if so, the action is not allowed
+                    if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
                     {
-                        validMove = true;
+                        if (!Chess.Controls.Chessboard.pieceCollision(origin, dest, movementCoordinates))
+                        {
+                            validMove = true;
+                        }
                     }
                 }
             }

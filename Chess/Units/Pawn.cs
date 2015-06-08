@@ -9,10 +9,10 @@ namespace Chess.Units
 {
     class Pawn : Unit
     {
-        public Pawn(int PIECE_COLOR)
+        public Pawn(int PIECE_COLOR, Point origin)
         {
             pieceType = "Pawn";
-
+            base.origin = origin;
             if (PIECE_COLOR == Utilities.Chesspieces.WHITE)
             {
                 base.pieceID = 1;
@@ -44,55 +44,43 @@ namespace Chess.Units
                     startPosition = 6;
                     break;
             }
-            // verify the target doesn't contain a piece of our own
-            if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
+            if (origin != dest)
             {
-                Unit target = (Unit)spaces[(int)dest.X][(int)dest.Y].chessPiece;
+                // verify the target doesn't contain a piece of our own
+                if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
+                {
+                    Unit target = (Unit)spaces[(int)dest.X][(int)dest.Y].chessPiece;
 
-                //can only move straight vertical, except when capturing
-                // first check the rules for vertical movement
-                if (Math.Abs(movementCoordinates.X) == 0 && target == null)
-                {
-                    if (origin.Y == startPosition && Math.Abs(movementCoordinates.Y) <= 2)
+                    //can only move straight vertical, except when capturing
+                    // first check the rules for vertical movement
+                    if (Math.Abs(movementCoordinates.X) == 0 && target == null)
                     {
-                        // starting position, so allow up to 2 spaces
-                        return true;
+                        if (origin.Y == startPosition && Math.Abs(movementCoordinates.Y) <= 2)
+                        {
+                            // starting position, so allow up to 2 spaces
+                            validMove = true;
+                        }
+                        else if (Math.Abs(movementCoordinates.Y) == 1)
+                        {
+                            validMove = true;
+                        }
                     }
-                    else if (Math.Abs(movementCoordinates.Y) == 1)
+                    // check if it truly is a diagonal movement of 1x1
+                    // if so, see if the target destination has an enemy piece
+                    else if (Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y) && target != null)
                     {
-                        return true;
+                        if (pieceID <= 6 && target.pieceID > 6)
+                        {
+                            validMove = true;
+                        }
+                        else if (pieceID > 6 && target.pieceID <= 6)
+                        {
+                            validMove = true;
+                        }
                     }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                // check if it truly is a diagonal movement of 1x1
-                // if so, see if the target destination has an enemy piece
-                else if(Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y) && target != null)
-                {
-                    if (pieceID <= 6 && target.pieceID > 6)
-                    {
-                        return true;
-                    }
-                    else if (pieceID > 6 && target.pieceID <= 6)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false; // no enemy piece, so invalid move 
-                    }        
-                }
-                else
-                {
-                    return false; // invalid amount of movement
                 }
             }
-            else
-            {
-                return false; // target is our own piece
-            }
+            return validMove;
         }
     }
 }

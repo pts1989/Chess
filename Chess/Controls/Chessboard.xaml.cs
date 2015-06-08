@@ -27,7 +27,7 @@ namespace Chess.Controls
         private static List<List<Placeholder>> spaces;
         private Unit currently_Dragged_Unit;
         private int turnCounter = 0;
-
+        private List<King> kingUnits = new List<King>();
         public Chessboard()
         {
             InitializeComponent();
@@ -63,49 +63,49 @@ namespace Chess.Controls
             for (int i = 0; i < 8; i++)
             {
                 // place pawns on 2nd rows from each side
-                spaces[i][1].chessPiece = new Pawn(Chesspieces.WHITE);
-                spaces[i][6].chessPiece = new Pawn(Chesspieces.BLACK);
+                spaces[i][1].chessPiece = new Pawn(Chesspieces.WHITE, new Point(i, 1));
+                spaces[i][6].chessPiece = new Pawn(Chesspieces.BLACK, new Point(i, 6));
             }
 
             for (int i = 0; i < 8; i++)
             {
                 UserControl chesspiece_white = null, chesspiece_black = null;
-                int white_id = 0, black_id = 0;
-
 
                 switch (i)
                 {
                     case 0: // tower
-                        chesspiece_white = new Tower(Chesspieces.WHITE);
-                        chesspiece_black = new Tower(Chesspieces.BLACK);
+                        chesspiece_white = new Tower(Chesspieces.WHITE, new Point(i, 0));
+                        chesspiece_black = new Tower(Chesspieces.BLACK, new Point(i, 7));
                         break;
                     case 1:
-                        chesspiece_white = new Horse(Chesspieces.WHITE);
-                        chesspiece_black = new Horse(Chesspieces.BLACK);
+                        chesspiece_white = new Horse(Chesspieces.WHITE, new Point(i, 0));
+                        chesspiece_black = new Horse(Chesspieces.BLACK, new Point(i, 7));
                         break;
                     case 2:
-                        chesspiece_white = new Bishop(Chesspieces.WHITE);
-                        chesspiece_black = new Bishop(Chesspieces.BLACK);
+                        chesspiece_white = new Bishop(Chesspieces.WHITE, new Point(i, 0));
+                        chesspiece_black = new Bishop(Chesspieces.BLACK, new Point(i, 7));
                         break;
                     case 3:
-                        chesspiece_white = new Queen(Chesspieces.WHITE);
-                        chesspiece_black = new Queen(Chesspieces.BLACK);
+                        chesspiece_white = new Queen(Chesspieces.WHITE, new Point(i, 0));
+                        chesspiece_black = new Queen(Chesspieces.BLACK, new Point(i, 7));
                         break;
                     case 4:
-                        chesspiece_white = new King(Chesspieces.WHITE);
-                        chesspiece_black = new King(Chesspieces.BLACK);
+                        chesspiece_white = new King(Chesspieces.WHITE, new Point(i,0));
+                        chesspiece_black = new King(Chesspieces.BLACK, new Point(i,7));
+                        kingUnits.Add((King)chesspiece_white);
+                        kingUnits.Add((King)chesspiece_black);
                         break;
                     case 5:
-                        chesspiece_white = new Bishop(Chesspieces.WHITE);
-                        chesspiece_black = new Bishop(Chesspieces.BLACK);
+                        chesspiece_white = new Bishop(Chesspieces.WHITE, new Point(i, 0));
+                        chesspiece_black = new Bishop(Chesspieces.BLACK, new Point(i, 7));
                         break;
                     case 6:
-                        chesspiece_white = new Horse(Chesspieces.WHITE);
-                        chesspiece_black = new Horse(Chesspieces.BLACK);
+                        chesspiece_white = new Horse(Chesspieces.WHITE, new Point(i, 0));
+                        chesspiece_black = new Horse(Chesspieces.BLACK, new Point(i, 7));
                         break;
                     case 7:
-                        chesspiece_white = new Tower(Chesspieces.WHITE);
-                        chesspiece_black = new Tower(Chesspieces.BLACK);
+                        chesspiece_white = new Tower(Chesspieces.WHITE, new Point(i, 0));
+                        chesspiece_black = new Tower(Chesspieces.BLACK, new Point(i, 7));
                         break;
                 }
                 spaces[i][0].chessPiece = chesspiece_white;
@@ -157,15 +157,32 @@ namespace Chess.Controls
                     // let the piece decide wether the move is valid.
                     if (piece.validateMove(destination, spaces))
                     {
-                        dest.chessPiece = piece;
-
-                        if (piece.origin != destination)
+                        // now the boardasks the king wether this move will put the king in danger
+                        // only necessary when the moved piece is not a king, otherwise
+                        // validation will have already happened
+                        bool validMove = true;
+                        Unit old = null;
+                        if (piece.pieceID != 6 && piece.pieceID != 12)
                         {
+                            old = (Unit)spaces[(int)destination.X][(int)destination.Y].chessPiece;
+                            spaces[(int)destination.X][(int)destination.Y].chessPiece = currently_Dragged_Unit;
+                            validMove = !kingUnits[turnCounter % 2].check(kingUnits[turnCounter % 2].origin, spaces);
+                        }
+                        if (validMove)
+                        {
+                            dest.chessPiece = piece;
+
                             // moved to different spot, so register and pass turn to other player
                             MoveData newdata = new MoveData(piece.getPieceType() + " to " + dest.Name, turnCounter);
                             moveMade(newdata, new EventArgs());
-                                
+
                             turnCounter++;
+                        }
+                        else
+                        {
+                            // place back the piece at the original position and remove the temporary movement
+                            spaces[(int)destination.X][(int)destination.Y].chessPiece = old;
+                            spaces[(int)piece.origin.X][(int)piece.origin.Y].chessPiece = currently_Dragged_Unit;
                         }
                     }
                     else
@@ -286,5 +303,6 @@ namespace Chess.Controls
             }
             return false;
         }
+
     }
 }

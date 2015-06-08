@@ -9,10 +9,10 @@ namespace Chess.Units
 {
     class Bishop : Unit
     {
-        public Bishop(int PIECE_COLOR)
+        public Bishop(int PIECE_COLOR, Point origin)
         {
             pieceType = "Bishop";
-
+            base.origin = origin;
             if (PIECE_COLOR == Utilities.Chesspieces.WHITE)
             {
                 base.pieceID = 4;
@@ -33,18 +33,20 @@ namespace Chess.Units
         {
             Point movementCoordinates = base.getMovementCoordinates(origin, dest);
             bool validMove = false;
-
-            if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
+            if (origin != dest)
             {
-                if (Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y))
+                if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
                 {
-                    if (!Chess.Controls.Chessboard.pieceCollision(origin, dest, movementCoordinates))
+                    if (Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y))
                     {
-                        validMove = true;
+                        if (!Chess.Controls.Chessboard.pieceCollision(origin, dest, movementCoordinates))
+                        {
+                            validMove = true;
+                        }
                     }
                 }
+                else { validMove = false; }
             }
-            else { validMove = false; }
             //Only diogonal movement allowed. If piece between start and end, invalid move. 
             return validMove;
         }

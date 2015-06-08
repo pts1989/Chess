@@ -9,10 +9,10 @@ namespace Chess.Units
 {
     class Queen : Unit
     {
-        public Queen(int PIECE_COLOR)
+        public Queen(int PIECE_COLOR, Point origin)
         {
             pieceType = "Queen";
-
+            base.origin = origin;
             if (PIECE_COLOR == Utilities.Chesspieces.WHITE)
             {
                 base.pieceID = 5;
@@ -34,20 +34,22 @@ namespace Chess.Units
             Point movementCoordinates = base.getMovementCoordinates(origin, dest);
             bool validMove = false;
 
-            if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
+            if (origin != dest)
             {
-                // can move in every direction. If piece between start and end, invalid move. 
-                if ((Math.Abs(movementCoordinates.X) <= 1 && Math.Abs(movementCoordinates.Y) <= 1)
-                    || (Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y))
-                    || ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0)))
+                if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
                 {
-                    if (!Chess.Controls.Chessboard.pieceCollision(origin, dest, movementCoordinates))
+                    // can move in every direction. If piece between start and end, invalid move. 
+                    if ((Math.Abs(movementCoordinates.X) <= 1 && Math.Abs(movementCoordinates.Y) <= 1)
+                        || (Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y))
+                        || ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0)))
                     {
-                        validMove = true;
+                        if (!Chess.Controls.Chessboard.pieceCollision(origin, dest, movementCoordinates))
+                        {
+                            validMove = true;
+                        }
                     }
                 }
             }
-
             return validMove;
         }
     }
