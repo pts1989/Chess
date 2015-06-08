@@ -102,7 +102,7 @@
       <DependentUpon>Unit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Chesspieces.cs" />
-    <Compile Include="Utilities\ObjectMovement.cs" />
+    <Compile Include="Utilities\MoveData.cs" />
     <Page Include="Controls\Chessboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

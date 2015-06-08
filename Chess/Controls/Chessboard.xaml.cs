@@ -33,6 +33,15 @@ namespace Chess.Controls
             InitializeComponent();
         }
 
+        public event EventHandler moveMade;
+        private void MakeSomethingHappen(EventArgs e)
+        {
+            if (moveMade != null)
+            {
+                moveMade(this, e);
+            }
+        }
+
         public void initialise_Board()
         {
 
@@ -152,17 +161,10 @@ namespace Chess.Controls
 
                         if (piece.origin != destination)
                         {
-
                             // moved to different spot, so register and pass turn to other player
-                            if (turnCounter % 2 == 0)
-                            {
-                                //P1_Textbox.Text += "\n" + piece.getPieceType() + " to " + piece.pieceType;
-                            }
-                            else
-                            {
-                                //P2_Textbox.Text += "\n" + piece.getPieceType() + " to " + piece.pieceType;
-                            }
-
+                            MoveData newdata = new MoveData(piece.getPieceType() + " to " + dest.Name, turnCounter);
+                            moveMade(newdata, new EventArgs());
+                                
                             turnCounter++;
                         }
                     }
@@ -218,7 +220,7 @@ namespace Chess.Controls
             {
                 case "horizontal":
                     {
-                        for (int colum = 0; colum < spaces.Count; colum++)
+                        for (int colum = 0; colum < spaces.Count-1; colum++)
                         {
                             if ((movement.X > 0 && (colum > start.X && colum < end.X)) || (movement.X < 0 && (colum > end.X && colum < start.X)))
                             {
@@ -233,11 +235,11 @@ namespace Chess.Controls
                     }
                 case "vertical":
                     {
-                        for (int row = 0; row < spaces.Count; row++)
+                        for (int row = 0; row < spaces.Count-1; row++)
                         {
                             if ((movement.Y > 0 && (row > start.Y && row < end.Y)) || (movement.Y < 0 && (row > end.Y && row < start.Y)))
                             {
-                                if (spaces[row][(int)start.X].chessPiece != null)
+                                if (spaces[(int)start.X][row].chessPiece != null)
                                 {
                                     collision = true;
                                 }
@@ -248,52 +250,41 @@ namespace Chess.Controls
                     }
                 case "diagonal":
                     {
-                        collision = diagonalCheck(start, end, movement, collision);
+                        collision = diagonalCheck(start, end, movement);
                         break;
                     }
             }
             return collision;
         }
 
-        public static bool diagonalCheck(Point start, Point end, Point movement, bool collision = false)
+        /**
+         * Returns a bool based on wether there are pieces between the origin and 
+         * destination points
+         * */
+        public static bool diagonalCheck(Point origin, Point destination, Point movement)
         {
-            int x = 1, y = 1;
-
-            if (movement.X < 0)
+            // first make sure it's actually diagonal movement, otherwise return true
+            if ((Math.Abs(movement.X) / Math.Abs(movement.Y) != 1))
             {
-                x = -1;
+                return true;
             }
-
-            if (movement.Y < 0)
+            else
             {
-                y = -1;
-            }
-
-            Point checkPoint = new Point(start.X + x, start.Y + y);
-
-            for (int colum = 0; colum < spaces.Count; colum++)
-            {
-                if (colum == checkPoint.X)
+                // check for actual collision
+                // loop through diagonally, adding i to the X and Y of movement
+                for (int i = 0; i != (int)movement.X; i=(int)movement.X)
                 {
-                    for (int row = 0; row < spaces[colum].Count; row++)
+                    for (int j = 0; j < (int)movement.Y; j += (int)(movement.Y / Math.Abs(movement.Y)))
                     {
-                        if (row == checkPoint.Y)
+                        if (spaces[((int)origin.X + i)][((int)origin.Y + j)].chessPiece != null)
                         {
-                            if (spaces[row][row].chessPiece != null)
-                            {
-                                collision = true;
-                            }
+                            return true;
                         }
+                        i += (int)(movement.X / movement.Y);
                     }
                 }
             }
-
-            if (!collision && checkPoint != end)
-            {
-                diagonalCheck(checkPoint, end, movement, collision);
-            }
-
-            return collision;
+            return false;
         }
     }
 }

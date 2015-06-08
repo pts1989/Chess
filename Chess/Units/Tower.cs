@@ -33,14 +33,18 @@ namespace Chess.Units
         {
             Point movementCoordinates = base.getMovementCoordinates(origin, dest);
             bool validMove = false;
+
             if ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0))
             {
-                // movement is allowed, now check for pieces in between.
-                if (!Chess.Controls.Chessboard.pieceCollision(origin,dest, movementCoordinates))
+                // movement is allowed, now check if the target destination contains a piece of your own
+                // if so, the action is not allowed
+                if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
                 {
-                    validMove = true;
+                    if (!Chess.Controls.Chessboard.pieceCollision(origin, dest, movementCoordinates))
+                    {
+                        validMove = true;
+                    }
                 }
-
             }
             return validMove;
             //Only horizontal and vertical movement allowed. If piece between start and end, invalid move. 

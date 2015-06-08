@@ -37,7 +37,11 @@ namespace Chess
                 }
                 else
                 {
-                    piece_control.Children.Add(value);
+                    if (value.Parent == null)
+                    {
+                        piece_control.Children.Clear();
+                        piece_control.Children.Add(value);
+                    }
                 }
             } 
         }

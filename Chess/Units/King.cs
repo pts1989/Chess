@@ -31,6 +31,25 @@ namespace Chess.Units
          * */
         public override bool validateMove(Point dest, List<List<Placeholder>> spaces)
         {
+            Point movementCoordinates = base.getMovementCoordinates(origin, dest);
+            bool validMove = false;
+
+            if (Math.Abs(movementCoordinates.X) <= 1 && Math.Abs(movementCoordinates.Y) <= 1)
+            {
+                validMove = true;
+            }
+            //can move in every direction, but can not move more than one place. Also he can not make a move that would result in a checkmate or check. Also 
+            // can switch places with tower once'castling'.
+            return validMove;
+        }
+
+        public bool check(Point position)
+        {
+            return false;
+        }
+
+        public bool checkMate(Point position)
+        {
             return false;
         }
     }

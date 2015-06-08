@@ -31,7 +31,21 @@ namespace Chess.Units
          * */
         public override bool validateMove(Point dest, List<List<Placeholder>> spaces)
         {
-            return false;
+            // Can jump over other objects. Always eighter one or two places sideways and always eighter one or two places up/downwards. If sideways one, 
+            //then up/down two places, if up/down one then sideways two places
+            Point movementCoordinates = base.getMovementCoordinates(origin, dest);
+            bool validMove = false;
+
+            if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
+            {
+                if ((Math.Abs(movementCoordinates.X) == 1 && Math.Abs(movementCoordinates.Y) == 2) || (Math.Abs(movementCoordinates.X) == 2 && Math.Abs(movementCoordinates.Y) == 1))
+                {
+                    // no need for piece collision, horse can jump over anything
+                    validMove = true;
+                }
+            }
+            
+            return validMove;
         }
     }
 }

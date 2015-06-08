@@ -31,7 +31,22 @@ namespace Chess.Units
          * */
         public override bool validateMove(Point dest, List<List<Placeholder>> spaces)
         {
-            return false;
+            Point movementCoordinates = base.getMovementCoordinates(origin, dest);
+            bool validMove = false;
+
+            if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
+            {
+                if (Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y))
+                {
+                    if (!Chess.Controls.Chessboard.pieceCollision(origin, dest, movementCoordinates))
+                    {
+                        validMove = true;
+                    }
+                }
+            }
+            else { validMove = false; }
+            //Only diogonal movement allowed. If piece between start and end, invalid move. 
+            return validMove;
         }
     }
 }

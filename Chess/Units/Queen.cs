@@ -31,7 +31,24 @@ namespace Chess.Units
          * */
         public override bool validateMove(Point dest, List<List<Placeholder>> spaces)
         {
-            return false;
+            Point movementCoordinates = base.getMovementCoordinates(origin, dest);
+            bool validMove = false;
+
+            if (base.validateDestination((Placeholder)spaces[(int)dest.X][(int)dest.Y]))
+            {
+                // can move in every direction. If piece between start and end, invalid move. 
+                if ((Math.Abs(movementCoordinates.X) <= 1 && Math.Abs(movementCoordinates.Y) <= 1)
+                    || (Math.Abs(movementCoordinates.X) == Math.Abs(movementCoordinates.Y))
+                    || ((movementCoordinates.X != 0 && movementCoordinates.Y == 0) || (movementCoordinates.X == 0 && movementCoordinates.Y != 0)))
+                {
+                    if (!Chess.Controls.Chessboard.pieceCollision(origin, dest, movementCoordinates))
+                    {
+                        validMove = true;
+                    }
+                }
+            }
+
+            return validMove;
         }
     }
 }

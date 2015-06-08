@@ -47,6 +47,39 @@ namespace Chess.Units
         }
 
         /**
+         * Validates wether the target destination contains no piece, an enemy piece
+         * or a piece of our own.
+         * */
+        protected bool validateDestination(Placeholder dest)
+        {
+            Unit target = null;
+            // check if the destination actually has a chesspiece
+            if(dest.chessPiece != null){
+                target = (Unit)dest.chessPiece;
+
+                // check if its one of our own
+                if (pieceID <= 6 && target.pieceID <= 6)
+                {
+                    return false;
+                }
+                else if (pieceID > 6 && target.pieceID > 6)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return true;
+            }
+
+            
+        }
+
+        /**
          *  Returns a point that shows the difference between the 2 given Points.
          * */
         protected Point getMovementCoordinates(Point start, Point end)
