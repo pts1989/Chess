@@ -97,7 +97,7 @@ namespace Chess.Units
             }else if(pieceID == 12){
                 y = -1;
             }
-            if (spaces[(int)position.X + 1][(int)position.Y + y].chessPiece != null)
+            if (position.X < 7 && spaces[(int)position.X + 1][(int)position.Y + y].chessPiece != null)
             {
                 Unit piece = (Unit)spaces[(int)position.X + 1][(int)position.Y + y].chessPiece;
                 if (piece.pieceID == pawn)
@@ -105,7 +105,7 @@ namespace Chess.Units
                     return true;
                 }
             }
-            if (spaces[(int)position.X - 1][(int)position.Y + y].chessPiece != null)
+            if (position.Y < 7 && position.X > 0 && spaces[(int)position.X - 1][(int)position.Y + y].chessPiece != null)
             {
                 Unit piece = (Unit)spaces[(int)position.X - 1][(int)position.Y + y].chessPiece;
                 if (piece.pieceID == pawn)
@@ -228,7 +228,7 @@ namespace Chess.Units
             }
             if ((position.Y + 2) < spaces[0].Count)
             { // check the UPPER side of the king
-                if ((position.Y + 1) < spaces[0].Count)
+                if ((position.X + 1) < spaces[0].Count)
                 {
                     Unit piece = (Unit)spaces[(int)position.X + 1][(int)position.Y + 2].chessPiece;
                     if (piece != null && piece.pieceID == horse)
@@ -236,7 +236,7 @@ namespace Chess.Units
                         return true;
                     }
                 }
-                if ((position.Y - 1) >= 0)
+                if ((position.Y + 2) < spaces.Count && (position.X - 1) >= 0)
                 {
                     Unit piece = (Unit)spaces[(int)position.X - 1][(int)position.Y + 2].chessPiece;
                     if (piece != null && piece.pieceID == horse)
@@ -247,7 +247,7 @@ namespace Chess.Units
             }
             if ((position.Y - 2) > 0)
             { // check the LOWER side of the king
-                if ((position.Y + 1) < spaces[0].Count)
+                if ((position.X + 1) < spaces[0].Count)
                 {
                     Unit piece = (Unit)spaces[(int)position.X + 1][(int)position.Y - 2].chessPiece;
                     if (piece != null && piece.pieceID == horse)
@@ -382,17 +382,17 @@ namespace Chess.Units
             for (int i = -1; i <= 1; i++)
             {
                 Unit piece;
-                if ((int)position.X - 1 >= 0) // check middle
+                if ((int)position.X + i < spaces.Count && (int)position.X+i >= 0) // check middle
                 {
                     piece = (Unit)spaces[(int)position.X + i][(int)position.Y].chessPiece;
                     if (piece != null && piece.pieceID == king) { return true; }
                 }
-                if ((int)position.Y + 1 < spaces[0].Count) // check top
+                if ((int)position.Y + i < spaces[0].Count && (int)position.Y + 1 < spaces.Count) // check top
                 {
                     piece = (Unit)spaces[(int)position.X + i][(int)position.Y + 1].chessPiece;
                     if (piece != null && piece.pieceID == king) { return true; }
                 }
-                if ((int)position.Y - 1 >= 0) // check bottom
+                if ((int)position.Y + i >= 0 && (int)position.Y - 1 >= 0) // check bottom
                 {
                     piece = (Unit)spaces[(int)position.X + i][(int)position.Y - 1].chessPiece;
                     if (piece != null && piece.pieceID == king) { return true; }

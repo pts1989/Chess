@@ -52,6 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -84,8 +85,17 @@
     <Compile Include="Controls\Chessboard.xaml.cs">
       <DependentUpon>Chessboard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MessageBox_Item_p2.xaml.cs">
+      <DependentUpon>MessageBox_Item_p2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Menu_Button.xaml.cs">
       <DependentUpon>Menu_Button.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MessageBox_Item_p1.xaml.cs">
+      <DependentUpon>MessageBox_Item_p1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Player_MessageBox.xaml.cs">
+      <DependentUpon>Player_MessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Units\Horse.cs" />
     <Compile Include="Units\Queen.cs" />
@@ -111,11 +121,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\MessageBox_Item_p2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Menu_Button.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\MessageBox_Item_p1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Placeholder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Player_MessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -210,7 +232,6 @@
     <Resource Include="Images\white_tower.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Pages\Untitled.gif" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

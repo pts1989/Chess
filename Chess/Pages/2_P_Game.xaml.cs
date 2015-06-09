@@ -57,11 +57,11 @@ namespace Chess.Pages
             int counter = (int)sender;
             if (counter % 2 == 0)
             {
-                P1_Textbox.Text += "\n YOU WINNNN!";
+                addMoveString("YOU WINNNN!", 1);
             }
             else
             {
-                P2_Textbox.Text += "\n YOU WINNNN!";
+                addMoveString("YOU WINNNN!", 2);
             }
             Chessboard.clearBoard();
             Chessboard.initialise_Board();
@@ -71,11 +71,13 @@ namespace Chess.Pages
         {
             if (player == 1)
             {
-                P1_Textbox.Text += "\n" + move;
+                MessageBox_Item_p1 message = new MessageBox_Item_p1(move);
+                p1_messagebox.addMessage(message);
             }
             else if (player == 2)
             {
-                P2_Textbox.Text += "\n" + move;
+                MessageBox_Item_p2 message = new MessageBox_Item_p2(move);
+                p2_messagebox.addMessage(message);
             }
         }
     }
