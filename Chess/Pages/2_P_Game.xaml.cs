@@ -32,14 +32,36 @@ namespace Chess.Pages
             InitializeComponent();
             Chessboard.initialise_Board();
             Chessboard.moveMade += new EventHandler(moveMade);
+            Chessboard.checkMate += new EventHandler(showCheckMate);
         }
 
 
-
+        /**
+         * Eventhandler for when a move is made. Chessboard will mainly use this to let this GUI show
+         * a graphic representation of the move
+         * */
         void moveMade(object sender, EventArgs e)
         {
             MoveData data = (MoveData)sender;
             addMoveString(data.moveInfo, (data.turn % 2)+1);
+        }
+
+        /**
+         * Eventhandler for when a checkmate occurs. Chessboard will end the game and show the winning player he won.
+         * */
+        void showCheckMate(object sender, EventArgs e)
+        {
+            int counter = (int)sender;
+            if (counter % 2 == 0)
+            {
+                P1_Textbox.Text += "\n YOU WINNNN!";
+            }
+            else
+            {
+                P2_Textbox.Text += "\n YOU WINNNN!";
+            }
+            Chessboard.clearBoard();
+            Chessboard.initialise_Board();
         }
 
         public void addMoveString(string move, int player)

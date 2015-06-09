@@ -28,20 +28,20 @@ namespace Chess.Controls
         private Unit currently_Dragged_Unit;
         private int turnCounter = 0;
         private List<King> kingUnits = new List<King>();
+
+
+        public event EventHandler moveMade;
+        public event EventHandler checkMate;
+
         public Chessboard()
         {
             InitializeComponent();
         }
 
-        public event EventHandler moveMade;
-        private void MakeSomethingHappen(EventArgs e)
-        {
-            if (moveMade != null)
-            {
-                moveMade(this, e);
-            }
-        }
 
+        /**
+         * Assuming an empty board, places all pieces in their starting positions.
+         * */
         public void initialise_Board()
         {
 
@@ -116,6 +116,21 @@ namespace Chess.Controls
         }
 
         /**
+         * Clears the board and initialises a new one
+         * */
+        public void clearBoard()
+        {
+            foreach (List<Placeholder> ph in spaces)
+            {
+                foreach (Placeholder space in ph)
+                {
+                    space.chessPiece = null;
+                }
+            }
+
+        }
+
+        /**
          *  Method launches when a user 'picks up' a chess piece
          **/
         private void placeholder_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -181,7 +196,8 @@ namespace Chess.Controls
                             // a move has been made, it's possible the opponent king is now checkmate
                             if (kingUnits[(turnCounter+1) % 2].checkMate(kingUnits[(turnCounter+1) % 2].origin, spaces))
                             {
-                                
+                                // CHECKMATE, the other player wins, so ask the GUI to show this
+                                checkMate(turnCounter, new EventArgs());
                             }
 
                             turnCounter++;

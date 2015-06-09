@@ -872,7 +872,7 @@ namespace Chess.Units
                             {
                                 // determine top left
                                 Point topleft_pos = this.origin;
-                                while ((topleft_pos.X > 0 && topleft_pos.Y < 8))
+                                while ((topleft_pos.X > 0 && topleft_pos.Y < 7))
                                 {
                                     topleft_pos = new Point(topleft_pos.X - 1, topleft_pos.Y + 1);
                                 }
@@ -957,6 +957,8 @@ namespace Chess.Units
                             }
                         }
                     }
+                    // if no return false has happened at this point, i'm afraid it's game over
+                    return true;
                 }
             }
             else { return false; } // king not even checked, so certainly not checkmate
