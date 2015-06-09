@@ -868,13 +868,71 @@ namespace Chess.Units
 
                         if (unit.pieceID == 4 || unit.pieceID == 10 || unit.pieceID == 5 || unit.pieceID == 11) // Bishop & queen
                         {
+                            if ((unit.origin.X < this.origin.X && unit.origin.Y > this.origin.Y) || (unit.origin.X > this.origin.X && unit.origin.Y < this.origin.Y))
+                            {
+                                // determine top left
+                                Point topleft_pos = this.origin;
+                                while ((topleft_pos.X > 0 && topleft_pos.Y < 8))
+                                {
+                                    topleft_pos = new Point(topleft_pos.X - 1, topleft_pos.Y + 1);
+                                }
 
+                                bool hasFound = false;
+                                while (topleft_pos.X < 8 && topleft_pos.Y > 0)
+                                {
+                                    Unit piece = (Unit)spaces[(int)topleft_pos.X][(int)topleft_pos.Y].chessPiece;
+                                    if (piece == unit)
+                                    { // found the unit
+                                        hasFound = !hasFound;
+                                    }
+                                    else if (piece == this)
+                                    {   // found the king
+                                        hasFound = !hasFound;
+                                    }
+                                    else if (hasFound)
+                                    {
+                                        availableSpaces.Add(new Point(topleft_pos.X, topleft_pos.Y));
+                                    }
+                                    topleft_pos = new Point(topleft_pos.X + 1, topleft_pos.Y - 1);
+                                }
+
+                            }
+                            else if ((unit.origin.X > this.origin.X && unit.origin.Y > this.origin.Y) || (unit.origin.X < this.origin.X && unit.origin.Y < this.origin.Y))
+                            {
+                                // determine bottom left
+                                Point bottom_left = this.origin;
+                                while ((bottom_left.X > 0 && bottom_left.Y > 0))
+                                {
+                                    bottom_left = new Point(bottom_left.X - 1, bottom_left.Y - 1);
+                                }
+
+                                bool hasFound = false;
+                                while (bottom_left.X < 8 && bottom_left.Y < 8)
+                                {
+                                    Unit piece = (Unit)spaces[(int)bottom_left.X][(int)bottom_left.Y].chessPiece;
+                                    if (piece == unit)
+                                    { // found the unit
+                                        hasFound = !hasFound;
+                                    }
+                                    else if (piece == this)
+                                    {   // found the king
+                                        hasFound = !hasFound;
+                                    }
+                                    else if (hasFound)
+                                    {
+                                        availableSpaces.Add(new Point(bottom_left.X, bottom_left.Y));
+                                    }
+                                    bottom_left = new Point(bottom_left.X + 1, bottom_left.Y + 1);
+                                }
+                            }
                         }
 
 
                         if (unit.pieceID == 6 || unit.pieceID == 12) // King
                         {
-
+                            // should not happen, as placing a king near a king will result
+                            // in a check for both players. SHOULD be filtered out as soon as one player
+                            // tries to place his king next to the other
                         }
                     }
 
