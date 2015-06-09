@@ -31,6 +31,9 @@ namespace Chess.Units
          * */
         public override bool validateMove(Point dest, List<List<Placeholder>> spaces)
         {
+            // make sure no invalid coordinates are given
+            if (dest.X < 0 || dest.Y < 0) { return false; }
+
             // Can jump over other objects. Always eighter one or two places sideways and always eighter one or two places up/downwards. If sideways one, 
             //then up/down two places, if up/down one then sideways two places
             Point movementCoordinates = base.getMovementCoordinates(origin, dest);

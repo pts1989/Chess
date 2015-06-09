@@ -31,6 +31,9 @@ namespace Chess.Units
          * */
         public override bool validateMove(Point dest, List<List<Placeholder>> spaces)
         {
+            // make sure no invalid coordinates are given
+            if (dest.X < 0 || dest.Y < 0) { return false; }
+
             Point movementCoordinates = base.getMovementCoordinates(origin, dest);
             bool validMove = false;
             if (origin != dest)

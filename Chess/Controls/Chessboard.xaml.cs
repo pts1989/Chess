@@ -170,7 +170,9 @@ namespace Chess.Controls
                         }
                         if (validMove)
                         {
+                            // actually replace the chessPiece and update the origin
                             dest.chessPiece = piece;
+                            piece.origin = destination;
 
                             // moved to different spot, so register and pass turn to other player
                             MoveData newdata = new MoveData(piece.getPieceType() + " to " + dest.Name, turnCounter);
@@ -299,9 +301,12 @@ namespace Chess.Controls
                 {
                     for (int j = 0; j < (int)movement.Y; j += (int)(movement.Y / Math.Abs(movement.Y)))
                     {
-                        if (spaces[((int)origin.X + i)][((int)origin.Y + j)].chessPiece != null)
+                        if (new Point((int)origin.X + i, (int)origin.Y + j) != origin) // do not take into account the origin
                         {
-                            return true;
+                            if (spaces[((int)origin.X + i)][((int)origin.Y + j)].chessPiece != null)
+                            {
+                                return true;
+                            }
                         }
                         i += (int)(movement.X / movement.Y);
                     }
