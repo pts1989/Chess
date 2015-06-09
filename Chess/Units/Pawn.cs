@@ -38,13 +38,15 @@ namespace Chess.Units
 
             Point movementCoordinates = getMovementCoordinates(origin, dest);
             int startPosition = -1;
-            switch (pieceID)
+            switch (pieceID) // set starting position based on black or white piece, also check if it's a FORWARD movement
             {
                 case 1:
                     startPosition = 1;
+                    if (movementCoordinates.Y < 0) { return false; }
                     break;
                 case 7:
                     startPosition = 6;
+                    if (movementCoordinates.Y > 0) { return false; }
                     break;
             }
             if (origin != dest)
