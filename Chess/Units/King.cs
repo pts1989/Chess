@@ -400,9 +400,26 @@ namespace Chess.Units
             return false;
         }
 
-        public bool checkMate(Point position)
+
+        /**
+         * Returns a bool based on wether the king is in checkmate status.
+         * Should be called after every turn to check if the game has ended.
+         * */
+        public bool checkMate(Point position, List<List<Placeholder>> spaces)
         {
             bool checkmate = false;
+
+            if (check(position, spaces))
+            {
+                // confirmed that this king is 'check'
+                // now verify every move this king kan do and see if still checked.
+
+                // if that doesn't solve the problem, check if other pieces can block
+                // first get the spaces that need to be blocked in order to resolve
+                // a piece being able to attack the king.
+                // try, for each available piece, to move to these positions. if any of them
+                // are legal moves, it's not checkmate
+            }
 
             return checkmate;
         }

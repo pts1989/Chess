@@ -176,6 +176,12 @@ namespace Chess.Controls
                             MoveData newdata = new MoveData(piece.getPieceType() + " to " + dest.Name, turnCounter);
                             moveMade(newdata, new EventArgs());
 
+                            // a move has been made, it's possible the opponent king is now checkmate
+                            if (kingUnits[(turnCounter+1) % 2].checkMate(kingUnits[(turnCounter+1) % 2].origin, spaces))
+                            {
+                                
+                            }
+
                             turnCounter++;
                         }
                         else
