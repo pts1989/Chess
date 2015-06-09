@@ -33,6 +33,7 @@ namespace Chess.Pages
             Chessboard.initialise_Board();
             Chessboard.moveMade += new EventHandler(moveMade);
             Chessboard.checkMate += new EventHandler(showCheckMate);
+            p1_arrow.Visibility = System.Windows.Visibility.Visible;
         }
 
 
@@ -44,6 +45,8 @@ namespace Chess.Pages
         {
             MoveData data = (MoveData)sender;
             addMoveString(data.moveInfo, (data.turn % 2)+1);
+            if (data.turn % 2 == 1) { p1_arrow.Visibility = System.Windows.Visibility.Visible; p2_arrow.Visibility = System.Windows.Visibility.Hidden; }
+            else if (data.turn % 2 == 0) { p2_arrow.Visibility = System.Windows.Visibility.Visible; p1_arrow.Visibility = System.Windows.Visibility.Hidden; }
         }
 
         /**

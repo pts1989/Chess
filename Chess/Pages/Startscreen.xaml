@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" xmlns:Chess="clr-namespace:Chess" x:Class="Chess.Pages.Startscreen" 
-      mc:Ignorable="d" 
+      
+	  mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="Startscreen" Width="1274" Height="693">
 
@@ -70,6 +71,6 @@
 		</Rectangle>
 		<Label Content="Artificial Intelligence Chess" HorizontalAlignment="Left" Margin="815,140.113,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" FontSize="18.667" Foreground="White" Width="360.977"/>
 		<TextBlock HorizontalAlignment="Left" Margin="815,202.5,0,0" VerticalAlignment="Top" Height="149.46" Width="411.5" Foreground="White" FontFamily="Century Gothic" FontSize="14.667"><Run Text="A simple Chess program, made for a university Course."/><LineBreak/><Run Text="Either play against the computer, or play against a friend."/><LineBreak/><Run/><LineBreak/><Run Text="Enjoy!"/><LineBreak/><Run/><LineBreak/><Run Text="P. Stolk &amp; S. Bolluijt"/></TextBlock>
-        
-	</Grid>
+
+    </Grid>
 </Page>

@@ -6,6 +6,7 @@
 	  xmlns:local="clr-namespace:Chess"
       xmlns:controls="clr-namespace:Chess"
       xmlns:Controls="clr-namespace:Chess.Controls" x:Class="Chess.Pages._2_P_Game" 
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="_2_P_Game" Width="1274" Height="695">
@@ -19,5 +20,7 @@
 		<TextBox x:Name="P1_Textbox" HorizontalAlignment="Left" Height="281" Margin="41,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159" SelectionBrush="{x:Null}" Foreground="Black" BorderBrush="{x:Null}" FontFamily="Century Gothic" FontSize="13.333" IsEnabled="False"/>
 		<Label Content="Player 1" HorizontalAlignment="Left" Margin="41,46,0,0" VerticalAlignment="Top" Width="159" Foreground="White" FontFamily="Century Gothic" FontSize="18.667"/>
 		<TextBlock HorizontalAlignment="Left" Margin="1071,51,0,0" TextWrapping="Wrap" Text="Player 2" VerticalAlignment="Top" Foreground="White" FontFamily="Century Gothic" FontSize="18.667" TextAlignment="Right" Height="32.887" Width="159"/>
-	</Grid>
+        <Image x:Name="p2_arrow" Visibility="Hidden" gif:ImageBehavior.AnimatedSource="/Chess;component/Images/arrows_right.gif" Width="40" Height="20" Margin="1071,53,163,622" />
+        <Image x:Name="p1_arrow" Visibility="Hidden" gif:ImageBehavior.AnimatedSource="/Chess;component/Images/arrows_left.gif" Width="40" Height="20" Margin="160,53,1074,622" />
+    </Grid>
 </Page>
