@@ -23,6 +23,10 @@ namespace Chess
 			this.InitializeComponent();
 		}
 
+        /**
+         * Method for adding a message to the current messagebox
+         * @param Item for player 1
+         * */
         public void addMessage(MessageBox_Item_p1 item)
         {
             LayoutRoot.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(20) });
@@ -30,6 +34,10 @@ namespace Chess
             LayoutRoot.Children.Add(item);
         }
 
+        /**
+         * Method for adding a message to the current messagebox
+         * @param Item for player 2
+         * */
         public void addMessage(MessageBox_Item_p2 item)
         {
             LayoutRoot.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(20) });

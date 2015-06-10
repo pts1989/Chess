@@ -10,7 +10,7 @@
 	d:DesignWidth="640" d:DesignHeight="480" Width="200" Height="20" Foreground="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top">
 
 	<Grid x:Name="LayoutRoot" Height="20">
-		<ed:Arc ArcThickness="20" ArcThicknessUnit="Pixel" EndAngle="360" Fill="#FF787A87" HorizontalAlignment="Left" Height="5" Margin="5,7.5,0,0" Stretch="None" Stroke="Black" StartAngle="0" VerticalAlignment="Top" Width="5" StrokeThickness="0"/>
-		<TextBlock x:Name="textbox" Margin="15,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="15" FontFamily="Century Gothic" FontSize="13.333" Foreground="White"/>
+		<ed:Arc ArcThickness="20" ArcThicknessUnit="Pixel" EndAngle="360" Fill="#FF787A87" HorizontalAlignment="Right" Height="5" Margin="0,7.5,5,0" Stretch="None" Stroke="Black" StartAngle="0" VerticalAlignment="Top" Width="5" StrokeThickness="0"/>
+		<TextBlock x:Name="textbox" Margin="15,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="15" FontFamily="Century Gothic" FontSize="13.333" Foreground="White" TextAlignment="Right"/>
 	</Grid>
 </UserControl>

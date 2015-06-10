@@ -63,10 +63,14 @@ namespace Chess.Pages
             {
                 addMoveString("YOU WINNNN!", 2);
             }
-            Chessboard.clearBoard();
-            Chessboard.initialise_Board();
+            //Chessboard.clearBoard();
+            //Chessboard.initialise_Board();
         }
 
+        /**
+         * Generic method for adding any and all text to the corresponding
+         * players' messagebox
+         * */
         public void addMoveString(string move, int player)
         {
             if (player == 1)

@@ -10,17 +10,17 @@
       mc:Ignorable="d"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="_2_P_Game" Width="1274" Height="695">
-	<Grid x:Name="Main" Background="#FF4C4F69">
-		<Border BorderBrush="#FF17244F" BorderThickness="2" HorizontalAlignment="Left" Height="600" Margin="337,46,0,0" VerticalAlignment="Top" Width="600.167">
-			
-			<Controls:Chessboard x:Name="Chessboard"/>
-			
-		</Border>
-		<Label Content="Player 1" HorizontalAlignment="Left" Margin="41,46,0,0" VerticalAlignment="Top" Width="159" Foreground="White" FontFamily="Century Gothic" FontSize="18.667"/>
-		<TextBlock HorizontalAlignment="Left" Margin="1071,51,0,0" TextWrapping="Wrap" Text="Player 2" VerticalAlignment="Top" Foreground="White" FontFamily="Century Gothic" FontSize="18.667" TextAlignment="Right" Height="32.887" Width="159"/>
+    <Grid x:Name="Main" Background="#FF4C4F69">
+        <Border BorderBrush="#FF17244F" BorderThickness="2" HorizontalAlignment="Left" Height="600" Margin="337,46,0,0" VerticalAlignment="Top" Width="600.167">
+
+            <Controls:Chessboard x:Name="Chessboard"/>
+
+        </Border>
+        <Label Content="Player 1" HorizontalAlignment="Left" Margin="41,46,0,0" VerticalAlignment="Top" Width="159" Foreground="White" FontFamily="Century Gothic" FontSize="18.667"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1071,51,0,0" TextWrapping="Wrap" Text="Player 2" VerticalAlignment="Top" Foreground="White" FontFamily="Century Gothic" FontSize="18.667" TextAlignment="Right" Height="32.887" Width="159"/>
         <Image x:Name="p2_arrow" Visibility="Hidden" gif:ImageBehavior.AnimatedSource="/Chess;component/Images/arrows_right.gif" Width="40" Height="20" Margin="1071,53,163,622" />
         <Image x:Name="p1_arrow" Visibility="Hidden" gif:ImageBehavior.AnimatedSource="/Chess;component/Images/arrows_left.gif" Width="40" Height="20" Margin="160,53,1074,622" />
         <controls:Player_MessageBox x:Name="p1_messagebox" HorizontalAlignment="Left" Margin="41,78.887,0,0" VerticalAlignment="Top"/>
-        <controls:Player_MessageBox x:Name="p2_messagebox" HorizontalAlignment="Left" Margin="1030,88.887,0,0" VerticalAlignment="Top"/>
+        <controls:Player_MessageBox x:Name="p2_messagebox" HorizontalAlignment="Left" Margin="1030,78.887,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>
